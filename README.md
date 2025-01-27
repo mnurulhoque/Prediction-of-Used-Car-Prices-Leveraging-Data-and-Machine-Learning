@@ -53,7 +53,11 @@ The heatmap of the missing values after data cleaning has been given below:
 
 **Balancing the Dataset:** Before balancing, the distribution of the target variable in the training data shows a significant imbalance across the defined bins. As evident in the first chart ("Distribution of Target Variable in Training Data"), one bin (e.g., bin 1) dominates the dataset with the highest frequency, while other bins, particularly bin 0, have considerably fewer samples. This imbalance can skew machine learning models, causing them to become biased towards the majority class, ultimately reducing their performance on underrepresented classes.
 
+![Distribution of target variable in training data](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Distribution%20of%20target%20variable%20in%20training%20data.png)
+
 To address this, upsampling is used to balance the dataset. The process involves first combining the training features (X_train) and target variable (y_train) into a single DataFrame. Each target value is grouped into bins (e.g., bin column), which highlights the imbalance. Then, the resample function is applied to the underrepresented bins, duplicating their samples until each bin reaches the same number of samples as the majority class (the maximum bin count). The upsampling is performed with replacement, ensuring that the original distribution of each class within the bins is preserved while increasing their representation. The balanced dataset is then constructed by concatenating all the resampled subsets for each unique bin.
+
+![Distribution of target variable after balancing](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Distribution%20of%20target%20variable%20after%20balancing.png)
 
 After balancing, as shown in the second chart ("Distribution of Target Variable After Balancing"), the frequencies of all bins are equalized. This improvement ensures that the dataset no longer exhibits class imbalance, which helps to mitigate biases during model training. As a result, the model can learn equally from all classes, improving its ability to generalize and predict accurately across all categories. This enhancement is particularly important for tasks requiring fair and representative predictions across different classes.
 
@@ -79,6 +83,8 @@ iv. CatBoost: A gradient-boosting algorithm specifically designed for categorica
 ### Model Justification and Fine-Tuning:
 The models were chosen based on their proven performance with tabular datasets and their ability to handle numerical and categorical features (Varma et al., 2023; Wang et al., 2022). To improve performance, hyperparameter tuning was performed using Optuna, an automated optimization framework:
 
+![Optimized hyperparameters](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Optimized%20hyperparameters.png)
+
 ### Model Evaluation and Cross-Validation:
 Model evaluation was performed using a 5-fold Cross-Validation strategy to ensure that the models generalize well across unseen data. Performance was measured using:
 
@@ -89,19 +95,30 @@ Model evaluation was performed using a 5-fold Cross-Validation strategy to ensur
 ### Baseline Model Performance:
 Each model was trained on the preprocessed dataset, and their performance was evaluated using Root Mean Squared Error (RMSE) and R² score. The baseline results are as follows:
 
+![Baseline model performance](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Baseline%20model%20performance.png)
+
 ### Model Performance After Optimization:
 After hyperparameter tuning, the optimized performance results are as follows:
+
+![Model performance after optimization](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Model%20performance%20after%20optimization.png)
 
 ### Best Model Selection:
 The best-performing model for predicting car prices is XGBoost, which achieved the lowest RMSE (Root Mean Square Error) of 0.4249 and the highest R² (coefficient of determination) of 0.7954 among the optimized models. These metrics indicate that XGBoost not only provides the most accurate predictions by minimizing the average squared differences between predicted and actual values but also explains approximately 79.54% of the variance in the target variable. Compared to the other models, including Random Forest, LightGBM, and CatBoost, XGBoost strikes the best balance between precision and generalizability, making it the optimal choice for this predictive task.
 
 ## MACHINE LEARNING MODEL INTERPRETABILITY 
+
+![Feature Importance](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Feature%20Importance.png)
+
 The SHAP summary plot provides insights into the impact of features on the XGBoost model's predictions for car price prediction. The horizontal axis represents the SHAP values, which indicate the impact of each feature on the model's output, while the vertical axis lists the features in descending order of importance.
 The most influential features are model, year, and odometer, as they have the widest range of SHAP values, meaning their variations significantly affect the predictions. For example, model shows both positive and negative SHAP values, indicating that different models can either increase or decrease the predicted price. Similarly, year shows that newer vehicles generally lead to higher predicted prices (positive SHAP values), while older vehicles decrease it.
 Features such as latitude (lat), manufacturer, and type also play a substantial role, although their impacts are less pronounced than the top features. These features capture geographical and categorical distinctions that affect pricing. On the other hand, features like state, fuel, and condition have lower SHAP values, suggesting they contribute less to the model's predictions.
 The color gradient represents feature values, where red indicates high values and blue indicates low values. For instance, for year, red points (newer cars) have positive SHAP values, contributing to higher predictions, while blue points (older cars) decrease predictions. This detailed visualization helps interpret the model's behavior and understand the factors influencing car price predictions.
 
+![LIME explanation-1](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/LIME%20explanation-1.png)
+
 This LIME explanation provides a detailed breakdown of a single prediction for car price, offering insights into how specific features influenced the model's output. The model predicted a price of 21,286.28, while the actual price was 16,094.99, indicating some lower predicted value. The prediction falls within a local range of possible values, from approximately 6.45 to 12.61. Key features influencing the prediction are displayed as either negative (blue), pulling the predicted value down, or positive (orange), pushing it up. The feature model contributes significantly in a negative direction, decreasing the predicted price by about 13,252.36 units, while condition and cylinders have strong positive contributions, adding approximately 4,545.74 and 2,716.17 units, respectively. Features such as drive and year also play a role, with drive slightly decreasing the prediction by 2,089.95 units and year (2013) increasing it by 2,020.40 units. Other features, including manufacturer, state, and type, have minor impacts on the prediction. The table on the right lists the actual input values for these features, providing context for their contributions. Overall, this explanation highlights the transparency of the model's decision-making process and identifies the most influential factors for this specific car's predicted price.
+
+![LIME explanation-2](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/LIME%20explanation-2.png)
 
 This LIME explanation illustrates the model's prediction for a specific car, providing insights into the features that influenced the output. The model predicted a price of 30,958.29, while the actual price was 36,494.99, showing a moderate higher predicted value. The prediction falls within a local range, from a minimum of 5.95 to a maximum of 12.66. The key influencing features are categorized into negative (blue), reducing the predicted price, and positive (orange), increasing it. Among the features, odometer and year make the largest positive contributions, adding 28,137.00 and 20,014.00 units, respectively, to the prediction. Features such as cylinders and condition also push the prediction higher, contributing 2,716.17 and 4,545.74 units, respectively. On the other hand, model has a significant negative impact, decreasing the prediction by 13,252.36 units. Features like latitude (lat), longitude (long), and drive also slightly reduce the predicted price but with less influence compared to the top contributors. The table on the right provides the actual values for each feature, adding context to the analysis. Overall, this explanation highlights how critical features like odometer, year, and model drive the model's predictions, offering transparency into its decision-making process.
 
