@@ -40,12 +40,16 @@ To understand the structure of the dataset, the following actions were performed
 **Missing Values:** A significant number of missing values were detected in several columns, such as condition, cylinders, drive, and size.
 A missing values heatmap was generated to visually identify columns with high percentages of missing data.
 
+![Missing values before cleaning](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Missing%20values%20before%20cleaning.png)
+
 ## DATA PREPROCESSING
 
 **Handling Missing Data:** Given the presence of missing values in key columns, preprocessing steps were applied:
 Columns such as url, region_url, VIN, image_url, description, and county were deemed irrelevant to the prediction task and removed.
 We handled missing values in the dataset by imputing numerical and categorical columns with appropriate statistical measures. For numerical columns, identified using select_dtypes(include=[np.number]), missing values are replaced with the median of the column. The median is chosen because it is robust to outliers, ensuring the central tendency of the data remains unaffected by extreme values. This imputation is performed in-place, directly modifying the original dataset. For categorical columns, identified using select_dtypes(include=[object]), missing values are replaced with the mode of the column, which represents the most frequently occurring value. Using the mode for categorical data ensures the imputed values align with the most common category, preserving the original distribution. This method avoids the loss of information associated with dropping rows or columns with missing data and is dynamic, automatically identifying and imputing columns based on their data types. Overall, this approach effectively preserves data integrity and ensures the dataset is ready for analysis or modeling.
 The heatmap of the missing values after data cleaning has been given below: 
+
+![Missing values after cleaning](https://github.com/mnurulhoque/Prediction-of-Used-Car-Prices-Leveraging-Data-and-Machine-Learning/blob/main/Missing%20values%20after%20cleaning.png)
 
 **Balancing the Dataset:** Before balancing, the distribution of the target variable in the training data shows a significant imbalance across the defined bins. As evident in the first chart ("Distribution of Target Variable in Training Data"), one bin (e.g., bin 1) dominates the dataset with the highest frequency, while other bins, particularly bin 0, have considerably fewer samples. This imbalance can skew machine learning models, causing them to become biased towards the majority class, ultimately reducing their performance on underrepresented classes.
 
