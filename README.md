@@ -11,12 +11,19 @@ This project bridges the gap between subjective car valuations and objective, da
 
 ## OVERVIEW OF THE DATASET
 The dataset includes a variety of features describing cars listed on Craigslist. It contains 26 columns, including both numerical and categorical features. Some notable features include:
+
 -`year`: The manufacturing year of the car.
+
 -`odometer`: The total mileage of the car.
+
 -`manufacturer`: The car's manufacturing company.
+
 -`model`: The specific model of the car.
+
 -`fuel`: The type of fuel used (e.g., gas, diesel, electric).
+
 -`transmission`: The type of transmission (automatic, manual, etc.).
+
 -`lat` and `long`: Geographic location coordinates of the car listing.
 
 The target variable for the prediction task is `price`, which represents the sale price of each car. 
@@ -25,12 +32,16 @@ The dataset has been downloaded from Kaggle. Here is the Link: https://www.kaggl
 
 ## INITIAL DATA EXPLORATION
 To understand the structure of the dataset, the following actions were performed:
+
 **Dataset Information:** The dataset has 14,101 rows and 26 columns. It includes numerical data (year, odometer, lat, long) and categorical data (manufacturer, model, fuel, transmission).
+
 **Summary Statistics:** Basic statistics such as mean, standard deviation, minimum, and maximum values were calculated for numerical columns like year and odometer. For example, the mean year of cars is approximately 2011, and the average mileage (odometer) is 101,914.
+
 **Missing Values:** A significant number of missing values were detected in several columns, such as condition, cylinders, drive, and size.
 A missing values heatmap was generated to visually identify columns with high percentages of missing data.
 
 ## DATA PREPROCESSING
+
 **Handling Missing Data:** Given the presence of missing values in key columns, preprocessing steps were applied:
 Columns such as url, region_url, VIN, image_url, description, and county were deemed irrelevant to the prediction task and removed.
 We handled missing values in the dataset by imputing numerical and categorical columns with appropriate statistical measures. For numerical columns, identified using select_dtypes(include=[np.number]), missing values are replaced with the median of the column. The median is chosen because it is robust to outliers, ensuring the central tendency of the data remains unaffected by extreme values. This imputation is performed in-place, directly modifying the original dataset. For categorical columns, identified using select_dtypes(include=[object]), missing values are replaced with the mode of the column, which represents the most frequently occurring value. Using the mode for categorical data ensures the imputed values align with the most common category, preserving the original distribution. This method avoids the loss of information associated with dropping rows or columns with missing data and is dynamic, automatically identifying and imputing columns based on their data types. Overall, this approach effectively preserves data integrity and ensures the dataset is ready for analysis or modeling.
@@ -52,9 +63,13 @@ After balancing, as shown in the second chart ("Distribution of Target Variable 
 
 ### Model Selection:
 Four machine learning models were selected for evaluation:
+
 i. Random Forest: An ensemble model that builds multiple decision trees to improve accuracy.
+
 ii. XGBoost: A gradient-boosting algorithm optimized for speed and performance.
+
 iii. LightGBM: A lightweight boosting algorithm suitable for large datasets.
+
 iv. CatBoost: A gradient-boosting algorithm specifically designed for categorical features.
 
 ### Model Justification and Fine-Tuning:
@@ -62,7 +77,9 @@ The models were chosen based on their proven performance with tabular datasets a
 
 ### Model Evaluation and Cross-Validation:
 Model evaluation was performed using a 5-fold Cross-Validation strategy to ensure that the models generalize well across unseen data. Performance was measured using:
+
 **i. Root Mean Squared Error (RMSE):** Measures prediction error magnitude. It is sensitive to large errors because it squares the residuals, making it an excellent measure when large deviations in price prediction are critical to detect (Hodson, 2022). Compared to Mean Absolute Error (MAE), RMSE penalizes large errors more severely, which aligns with the goal of minimizing significant mispredictions.
+
 **ii. R² Score:** Explains the proportion of variance captured by the model. This metric indicates how well the model explains variance in the target variable. It helps evaluate the goodness-of-fit for regression models and compares model performance across iterations.
 
 ### Baseline Model Performance:
