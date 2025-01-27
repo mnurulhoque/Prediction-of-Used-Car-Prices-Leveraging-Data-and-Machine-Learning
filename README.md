@@ -2,8 +2,11 @@
 
 ## OVERVIEW OF THE PROJECT
 This project aims to develop a machine learning model capable of predicting the resale price of used cars listed on platforms like Craigslist. By leveraging historical data and machine learning algorithms, the project seeks to achieve the following objectives:
+
 i. Accurate Price Predictions: Develop a predictive model to estimate car prices based on key features such as vehicle specifications (e.g., odometer, make, model, condition, transmission type) and seller information (e.g., location, fuel type, cylinders).
+
 ii. Feature Importance and Interpretability: Identify and interpret the key features driving car price predictions using SHAP values.
+
 This project bridges the gap between subjective car valuations and objective, data-driven pricing models, making car pricing more transparent, consistent, and fair for stakeholders.
 
 ## OVERVIEW OF THE DATASET
